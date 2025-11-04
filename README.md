@@ -13,6 +13,7 @@ API Spring Boot para el Club Social, preparada para ejecución en Docker y subid
 - `.dockerignore`: evita subir artefactos y secretos
 - `.env.example`: plantilla de variables (copiar a `.env`)
 - `src/main/resources/application.properties`: parametrizado para leer credenciales desde variables de entorno
+ - `samples/login.example.json`: ejemplo de payload de login con placeholders (sin secretos)
 
 ## Configuración de entorno
 1. Copia el archivo `.env.example` a `.env` y completa tus valores:
@@ -47,6 +48,7 @@ docker compose up --build -d
 - No subas tu `.env` (ya está ignorado en `.dockerignore`).
 - Usa secretos/vars en GitHub Actions o tu plataforma de despliegue.
 - Define `JWT_SECRET` en producción y gestiona tokens de forma segura.
+ - No incluyas credenciales reales en `samples/` ni archivos temporales (`tmp_*.json`).
 
 ## Ejecución local (opcional)
 ```
