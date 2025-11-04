@@ -1,0 +1,93 @@
+{
+  "auth": {
+    "register": {
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "email": "juan@example.com",
+      "password": "Password123!"
+    },
+    "login": {
+      "email": "juan@example.com",
+      "password": "Password123!"
+    }
+  },
+  "actividad": {
+    "create": {
+      "nombre": "Yoga",
+      "tipo": "DEPORTIVA",
+      "descripcion": "Clase de yoga",
+      "diaSemana": "LUNES",
+      "horaInicio": "18:00:00",
+      "horaFin": "19:00:00",
+      "estado": "ACTIVA",
+      "costo": 1500.0,
+      "cupoMaximo": 20
+    },
+    "update": {
+      "nombre": "Yoga Avanzado",
+      "tipo": "DEPORTIVA",
+      "descripcion": "Clase avanzada",
+      "diaSemana": "MARTES",
+      "horaInicio": "19:00:00",
+      "horaFin": "20:00:00",
+      "estado": "ACTIVA",
+      "costo": 1800.0,
+      "cupoMaximo": 15
+    }
+  },
+  "instalacion": {
+    "create": {
+      "nombre": "Cancha 1",
+      "descripcion": "Césped sintético",
+      "capacidad": 10,
+      "estado": "DISPONIBLE"
+    },
+    "update": {
+      "nombre": "Cancha 1",
+      "descripcion": "Césped nuevo",
+      "capacidad": 12,
+      "estado": "MANTENIMIENTO"
+    }
+  },
+  "evento": {
+    "create": {
+      "titulo": "Torneo Primavera",
+      "descripcion": "Torneo de tenis",
+      "fecha": "2025-11-15",
+      "ubicacion": "Club Central"
+    },
+    "update": {
+      "titulo": "Torneo Primavera",
+      "descripcion": "Actualización",
+      "fecha": "2025-11-16",
+      "ubicacion": "Club Central"
+    }
+  },
+  "noticia": {
+    "create": {
+      "titulo": "Nueva actividad de yoga",
+      "contenido": "Inscripciones abiertas",
+      "fechaPublicacion": "2025-10-25"
+    },
+    "update": {
+      "titulo": "Yoga actualizada",
+      "contenido": "Cupón 20%",
+      "fechaPublicacion": "2025-10-26"
+    }
+  },
+  "pago": {
+    "create": {
+      "monto": 2500.0,
+      "metodo": "TARJETA",
+      "descripcion": "Cuota mensual"
+    }
+  },
+  "reserva": {
+    "create": {
+      "instalacionId": 1,
+      "fecha": "2025-10-30",
+      "horaInicio": "10:00:00",
+      "horaFin": "11:00:00"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# Ignorar artefactos y archivos no necesarios en el contexto de build
+target/
+.git/
+.gitignore
+.vscode/
+tmp_*.json
+samples/
+HELP.md
+README*.md
+.env
+.env.*
+.DS_Store
+**/*.log

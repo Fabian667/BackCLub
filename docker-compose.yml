@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    image: clubsocial-app:latest
+    container_name: clubsocial-app
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      # Perfil Spring
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      # Configuración de DB (overridea application.properties)
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      # Opcional: opciones de JVM
+      - JAVA_OPTS=${JAVA_OPTS}
+    restart: unless-stopped
+
+  # Opcional: base de datos local para desarrollo
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: clubsocial-mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=secret
+  #     - MYSQL_DATABASE=railway
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local

@@ -1,0 +1,58 @@
+# Club Social API
+
+API Spring Boot para el Club Social, preparada para ejecución en Docker y subida a GitHub sin secretos.
+
+## Requisitos
+- Docker 24+
+- Docker Compose v2
+- (Opcional) Java 21 y Maven Wrapper para ejecución local
+
+## Archivos clave
+- `Dockerfile`: build multi-stage (Temurin JDK/JRE 21)
+- `docker-compose.yml`: orquestación de la app, lee variables desde `.env`
+- `.dockerignore`: evita subir artefactos y secretos
+- `.env.example`: plantilla de variables (copiar a `.env`)
+- `src/main/resources/application.properties`: parametrizado para leer credenciales desde variables de entorno
+
+## Configuración de entorno
+1. Copia el archivo `.env.example` a `.env` y completa tus valores:
+```
+SPRING_DATASOURCE_URL=jdbc:mysql://metro.proxy.rlwy.net:17801/railway?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+SPRING_DATASOURCE_USERNAME=root
+SPRING_DATASOURCE_PASSWORD=REPLACE_ME
+SPRING_PROFILES_ACTIVE=default
+JAVA_OPTS=
+```
+- Si tu proveedor requiere SSL: añade `useSSL=true&requireSSL=true&verifyServerCertificate=true` a la URL y configura certificados.
+
+## Construcción y ejecución
+### Docker directo
+```
+docker build -t clubsocial-app:latest .
+docker run --rm -p 8080:8080 --env-file ./.env clubsocial-app:latest
+```
+
+### Docker Compose
+```
+docker compose up --build -d
+```
+- Compose leerá el archivo `.env` automáticamente y mapeará `SPRING_*` y `JAVA_OPTS` al contenedor.
+
+## Endpoints de prueba
+- `GET http://localhost:8080/api/informacion`
+- `GET http://localhost:8080/api/sliders/activos`
+
+## Buenas prácticas
+- No subas tu `.env` (ya está ignorado en `.dockerignore`).
+- Usa secretos/vars en GitHub Actions o tu plataforma de despliegue.
+- Cambia `app.security.jwt.secret` en producción y gestiona tokens de forma segura.
+
+## Ejecución local (opcional)
+```
+./mvnw spring-boot:run
+```
+- Recuerda exportar variables de entorno si no usas Docker:
+  - `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`
+
+## Licencia
+- Este proyecto no declara una licencia específica. Añade una si lo necesitas.

@@ -1,0 +1,265 @@
+<svg viewBox="0 0 1600 2000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: white; stroke: #333; stroke-width: 2; }
+      .client { fill: #E3F2FD; stroke: #1976D2; stroke-width: 2; }
+      .controller { fill: #FFF3E0; stroke: #F57C00; stroke-width: 2; }
+      .security { fill: #FCE4EC; stroke: #C2185B; stroke-width: 2; }
+      .service { fill: #F3E5F5; stroke: #7B1FA2; stroke-width: 2; }
+      .repository { fill: #E8F5E9; stroke: #388E3C; stroke-width: 2; }
+      .database { fill: #E0F2F1; stroke: #00796B; stroke-width: 2; }
+      .title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #333; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 11px; fill: #555; }
+      .number { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: white; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-back { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead-back); stroke-dasharray: 5,5; }
+      .step-circle { fill: #1976D2; stroke: none; }
+      .highlight { fill: #FFEB3B; opacity: 0.3; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+    <marker id="arrowhead-back" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- Título Principal -->
+  <text x="800" y="40" class="title" style="font-size: 24px; text-anchor: middle;">Flujo de API - Sistema Club Social</text>
+  <text x="800" y="65" class="subtitle" style="text-anchor: middle;">Ejemplo: Usuario haciendo una reserva de instalación</text>
+
+  <!-- Cliente -->
+  <rect x="50" y="100" width="200" height="80" class="client" rx="5"/>
+  <text x="150" y="130" class="title" style="text-anchor: middle;">👤 Cliente</text>
+  <text x="150" y="150" class="subtitle" style="text-anchor: middle;">(Navegador Web /</text>
+  <text x="150" y="165" class="subtitle" style="text-anchor: middle;">App Móvil)</text>
+
+  <!-- Controller -->
+  <rect x="350" y="100" width="200" height="80" class="controller" rx="5"/>
+  <text x="450" y="130" class="title" style="text-anchor: middle;">🎮 Controller</text>
+  <text x="450" y="150" class="subtitle" style="text-anchor: middle;">ReservaController</text>
+  <text x="450" y="165" class="subtitle" style="text-anchor: middle;">@RestController</text>
+
+  <!-- Security Filter -->
+  <rect x="650" y="100" width="200" height="80" class="security" rx="5"/>
+  <text x="750" y="130" class="title" style="text-anchor: middle;">🔒 Security</text>
+  <text x="750" y="150" class="subtitle" style="text-anchor: middle;">JwtAuthFilter</text>
+  <text x="750" y="165" class="subtitle" style="text-anchor: middle;">Validación JWT</text>
+
+  <!-- Service -->
+  <rect x="950" y="100" width="200" height="80" class="service" rx="5"/>
+  <text x="1050" y="130" class="title" style="text-anchor: middle;">⚙️ Service</text>
+  <text x="1050" y="150" class="subtitle" style="text-anchor: middle;">Lógica de Negocio</text>
+  <text x="1050" y="165" class="subtitle" style="text-anchor: middle;">Validaciones</text>
+
+  <!-- Repository -->
+  <rect x="1250" y="100" width="200" height="80" class="repository" rx="5"/>
+  <text x="1350" y="130" class="title" style="text-anchor: middle;">📁 Repository</text>
+  <text x="1350" y="150" class="subtitle" style="text-anchor: middle;">ReservaRepository</text>
+  <text x="1350" y="165" class="subtitle" style="text-anchor: middle;">JPA Interface</text>
+
+  <!-- Database -->
+  <rect x="1250" y="250" width="200" height="80" class="database" rx="5"/>
+  <text x="1350" y="280" class="title" style="text-anchor: middle;">💾 Base de Datos</text>
+  <text x="1350" y="300" class="subtitle" style="text-anchor: middle;">PostgreSQL / MySQL</text>
+  <text x="1350" y="315" class="subtitle" style="text-anchor: middle;">Tablas: reservas, usuarios...</text>
+
+  <!-- FLUJO DETALLADO -->
+  <text x="50" y="400" class="title" style="font-size: 20px;">📋 Flujo Paso a Paso:</text>
+
+  <!-- Paso 1 -->
+  <circle cx="70" cy="450" r="20" class="step-circle"/>
+  <text x="70" y="458" class="number" style="text-anchor: middle;">1</text>
+  
+  <rect x="110" y="430" width="500" height="60" class="client" rx="5"/>
+  <text x="130" y="450" class="title">Cliente envía solicitud HTTP</text>
+  <text x="130" y="470" class="subtitle">POST /api/reservas</text>
+  <text x="130" y="485" class="subtitle">Headers: Authorization: Bearer eyJhbGc...</text>
+
+  <path d="M 250 180 L 250 420" class="arrow"/>
+
+  <!-- Paso 2 -->
+  <circle cx="70" cy="540" r="20" class="step-circle"/>
+  <text x="70" y="548" class="number" style="text-anchor: middle;">2</text>
+  
+  <rect x="110" y="520" width="500" height="75" class="security" rx="5"/>
+  <text x="130" y="540" class="title">Filtro de Seguridad intercepta</text>
+  <text x="130" y="560" class="subtitle">• JwtAuthFilter valida el token JWT</text>
+  <text x="130" y="575" class="subtitle">• Extrae información del usuario</text>
+  <text x="130" y="590" class="subtitle">• Verifica permisos y roles</text>
+
+  <path d="M 450 180 L 450 380 L 250 380 L 250 510" class="arrow"/>
+
+  <!-- Paso 3 -->
+  <circle cx="70" cy="650" r="20" class="step-circle"/>
+  <text x="70" y="658" class="number" style="text-anchor: middle;">3</text>
+  
+  <rect x="110" y="630" width="500" height="75" class="controller" rx="5"/>
+  <text x="130" y="650" class="title">Controller recibe la petición</text>
+  <text x="130" y="670" class="subtitle">• @PostMapping("/api/reservas")</text>
+  <text x="130" y="685" class="subtitle">• Extrae datos del RequestBody</text>
+  <text x="130" y="700" class="subtitle">• Mapea JSON a objetos Java (DTOs)</text>
+
+  <path d="M 250 595 L 250 620" class="arrow"/>
+
+  <!-- Paso 4 -->
+  <circle cx="70" cy="760" r="20" class="step-circle"/>
+  <text x="70" y="768" class="number" style="text-anchor: middle;">4</text>
+  
+  <rect x="110" y="740" width="500" height="90" class="service" rx="5"/>
+  <text x="130" y="760" class="title">Service ejecuta lógica de negocio</text>
+  <text x="130" y="780" class="subtitle">• Valida disponibilidad de la instalación</text>
+  <text x="130" y="795" class="subtitle">• Verifica que el horario esté libre</text>
+  <text x="130" y="810" class="subtitle">• Calcula el costo total</text>
+  <text x="130" y="825" class="subtitle">• Aplica reglas de negocio</text>
+
+  <path d="M 360 705 L 360 730" class="arrow"/>
+
+  <!-- Paso 5 -->
+  <circle cx="70" cy="885" r="20" class="step-circle"/>
+  <text x="70" y="893" class="number" style="text-anchor: middle;">5</text>
+  
+  <rect x="110" y="865" width="500" height="75" class="repository" rx="5"/>
+  <text x="130" y="885" class="title">Repository accede a la base de datos</text>
+  <text x="130" y="905" class="subtitle">• Genera consulta SQL automática (JPA)</text>
+  <text x="130" y="920" class="subtitle">• INSERT INTO reservas (...)</text>
+  <text x="130" y="935" class="subtitle">• Retorna la entidad guardada</text>
+
+  <path d="M 360 830 L 360 855" class="arrow"/>
+
+  <!-- Paso 6 -->
+  <circle cx="70" cy="995" r="20" class="step-circle"/>
+  <text x="70" y="1003" class="number" style="text-anchor: middle;">6</text>
+  
+  <rect x="110" y="975" width="500" height="60" class="database" rx="5"/>
+  <text x="130" y="995" class="title">Base de Datos persiste los datos</text>
+  <text x="130" y="1015" class="subtitle">• Guarda en tabla 'reservas'</text>
+  <text x="130" y="1030" class="subtitle">• Genera ID automático, timestamps, etc.</text>
+
+  <path d="M 360 940 L 360 965" class="arrow"/>
+
+  <!-- Paso 7 - RESPUESTA -->
+  <text x="50" y="1100" class="title" style="font-size: 18px;">🔄 Respuesta (Vuelta):</text>
+
+  <circle cx="70" cy="1150" r="20" class="step-circle"/>
+  <text x="70" y="1158" class="number" style="text-anchor: middle;">7</text>
+  
+  <rect x="110" y="1130" width="500" height="60" class="database" rx="5"/>
+  <text x="130" y="1150" class="title">DB retorna confirmación</text>
+  <text x="130" y="1170" class="subtitle">• Retorna la fila insertada con ID generado</text>
+  <text x="130" y="1185" class="subtitle">• Commit de la transacción</text>
+
+  <path d="M 380 1035 L 380 1120" class="arrow-back"/>
+
+  <!-- Paso 8 -->
+  <circle cx="70" cy="1245" r="20" class="step-circle"/>
+  <text x="70" y="1253" class="number" style="text-anchor: middle;">8</text>
+  
+  <rect x="110" y="1225" width="500" height="60" class="repository" rx="5"/>
+  <text x="130" y="1245" class="title">Repository mapea a entidad</text>
+  <text x="130" y="1265" class="subtitle">• Convierte ResultSet a objeto Reserva</text>
+  <text x="130" y="1280" class="subtitle">• Retorna al Service</text>
+
+  <path d="M 400 1190 L 400 1215" class="arrow-back"/>
+
+  <!-- Paso 9 -->
+  <circle cx="70" cy="1340" r="20" class="step-circle"/>
+  <text x="70" y="1348" class="number" style="text-anchor: middle;">9</text>
+  
+  <rect x="110" y="1320" width="500" height="60" class="service" rx="5"/>
+  <text x="130" y="1340" class="title">Service procesa resultado</text>
+  <text x="130" y="1360" class="subtitle">• Puede agregar datos adicionales</text>
+  <text x="130" y="1375" class="subtitle">• Retorna al Controller</text>
+
+  <path d="M 420 1285 L 420 1310" class="arrow-back"/>
+
+  <!-- Paso 10 -->
+  <circle cx="70" cy="1435" r="20" class="step-circle"/>
+  <text x="70" y="1443" class="number" style="text-anchor: middle;">10</text>
+  
+  <rect x="110" y="1415" width="500" height="75" class="controller" rx="5"/>
+  <text x="130" y="1435" class="title">Controller formatea respuesta</text>
+  <text x="130" y="1455" class="subtitle">• Convierte objeto a JSON</text>
+  <text x="130" y="1470" class="subtitle">• Agrega código HTTP: 201 Created</text>
+  <text x="130" y="1485" class="subtitle">• ResponseEntity con headers</text>
+
+  <path d="M 440 1380 L 440 1405" class="arrow-back"/>
+
+  <!-- Paso 11 -->
+  <circle cx="70" cy="1545" r="20" class="step-circle"/>
+  <text x="70" y="1553" class="number" style="text-anchor: middle;">11</text>
+  
+  <rect x="110" y="1525" width="500" height="75" class="client" rx="5"/>
+  <text x="130" y="1545" class="title">Cliente recibe respuesta</text>
+  <text x="130" y="1565" class="subtitle">HTTP 201 Created</text>
+  <text x="130" y="1580" class="subtitle">Body: {"id": 123, "fechaReserva": "2025-10-26",</text>
+  <text x="130" y="1595" class="subtitle">       "estado": "RESERVADA", ...}</text>
+
+  <path d="M 460 1490 L 460 1515" class="arrow-back"/>
+
+  <!-- EJEMPLO JSON -->
+  <text x="700" y="450" class="title" style="font-size: 16px;">📄 Ejemplo de Request:</text>
+  <rect x="700" y="470" width="450" height="180" fill="#f5f5f5" stroke="#333" stroke-width="1" rx="5"/>
+  <text x="720" y="495" class="subtitle" style="font-family: monospace; font-size: 10px;">POST /api/reservas</text>
+  <text x="720" y="515" class="subtitle" style="font-family: monospace; font-size: 10px;">Headers:</text>
+  <text x="740" y="535" class="subtitle" style="font-family: monospace; font-size: 10px;">Authorization: Bearer eyJhbGc...</text>
+  <text x="740" y="555" class="subtitle" style="font-family: monospace; font-size: 10px;">Content-Type: application/json</text>
+  <text x="720" y="580" class="subtitle" style="font-family: monospace; font-size: 10px;">Body:</text>
+  <text x="720" y="600" class="subtitle" style="font-family: monospace; font-size: 10px;">{</text>
+  <text x="740" y="615" class="subtitle" style="font-family: monospace; font-size: 10px;">"instalacionId": 5,</text>
+  <text x="740" y="630" class="subtitle" style="font-family: monospace; font-size: 10px;">"fechaReserva": "2025-10-26",</text>
+  <text x="740" y="645" class="subtitle" style="font-family: monospace; font-size: 10px;">"horaInicio": "14:00",</text>
+  <text x="720" y="660" class="subtitle" style="font-family: monospace; font-size: 10px;">}</text>
+
+  <!-- EJEMPLO RESPONSE -->
+  <text x="700" y="690" class="title" style="font-size: 16px;">📄 Ejemplo de Response:</text>
+  <rect x="700" y="710" width="450" height="200" fill="#f5f5f5" stroke="#333" stroke-width="1" rx="5"/>
+  <text x="720" y="735" class="subtitle" style="font-family: monospace; font-size: 10px;">HTTP/1.1 201 Created</text>
+  <text x="720" y="755" class="subtitle" style="font-family: monospace; font-size: 10px;">Content-Type: application/json</text>
+  <text x="720" y="780" class="subtitle" style="font-family: monospace; font-size: 10px;">{</text>
+  <text x="740" y="795" class="subtitle" style="font-family: monospace; font-size: 10px;">"id": 123,</text>
+  <text x="740" y="810" class="subtitle" style="font-family: monospace; font-size: 10px;">"instalacionId": 5,</text>
+  <text x="740" y="825" class="subtitle" style="font-family: monospace; font-size: 10px;">"fechaReserva": "2025-10-26",</text>
+  <text x="740" y="840" class="subtitle" style="font-family: monospace; font-size: 10px;">"horaInicio": "14:00:00",</text>
+  <text x="740" y="855" class="subtitle" style="font-family: monospace; font-size: 10px;">"estado": "RESERVADA",</text>
+  <text x="740" y="870" class="subtitle" style="font-family: monospace; font-size: 10px;">"costoTotal": 500.00</text>
+  <text x="720" y="885" class="subtitle" style="font-family: monospace; font-size: 10px;">}</text>
+
+  <!-- CONCEPTOS CLAVE -->
+  <text x="700" y="950" class="title" style="font-size: 16px;">🔑 Conceptos Clave:</text>
+  
+  <rect x="700" y="970" width="450" height="30" fill="#E3F2FD" stroke="#1976D2" stroke-width="1" rx="3"/>
+  <text x="710" y="990" class="subtitle" style="font-weight: bold;">JWT (JSON Web Token):</text>
+  <text x="880" y="990" class="subtitle">Token de autenticación seguro</text>
+
+  <rect x="700" y="1010" width="450" height="30" fill="#FFF3E0" stroke="#F57C00" stroke-width="1" rx="3"/>
+  <text x="710" y="1030" class="subtitle" style="font-weight: bold;">@RestController:</text>
+  <text x="880" y="1030" class="subtitle">Anotación Spring para APIs REST</text>
+
+  <rect x="700" y="1050" width="450" height="30" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="1" rx="3"/>
+  <text x="710" y="1070" class="subtitle" style="font-weight: bold;">Service Layer:</text>
+  <text x="880" y="1070" class="subtitle">Contiene la lógica de negocio</text>
+
+  <rect x="700" y="1090" width="450" height="30" fill="#E8F5E9" stroke="#388E3C" stroke-width="1" rx="3"/>
+  <text x="710" y="1110" class="subtitle" style="font-weight: bold;">JPA Repository:</text>
+  <text x="880" y="1110" class="subtitle">Abstracción de acceso a datos</text>
+
+  <rect x="700" y="1130" width="450" height="30" fill="#E0F2F1" stroke="#00796B" stroke-width="1" rx="3"/>
+  <text x="710" y="1150" class="subtitle" style="font-weight: bold;">ORM (Object-Relational Mapping):</text>
+  <text x="950" y="1150" class="subtitle">Mapeo objeto-tabla</text>
+
+  <!-- VENTAJAS -->
+  <text x="700" y="1200" class="title" style="font-size: 16px;">✅ Ventajas de esta arquitectura:</text>
+  
+  <text x="720" y="1230" class="subtitle">• <tspan style="font-weight: bold;">Separación de responsabilidades:</tspan> Cada capa tiene un propósito</text>
+  <text x="720" y="1250" class="subtitle">• <tspan style="font-weight: bold;">Fácil de testear:</tspan> Puedes probar cada capa independientemente</text>
+  <text x="720" y="1270" class="subtitle">• <tspan style="font-weight: bold;">Mantenible:</tspan> Cambios en una capa no afectan a las otras</text>
+  <text x="720" y="1290" class="subtitle">• <tspan style="font-weight: bold;">Escalable:</tspan> Puedes agregar funcionalidades fácilmente</text>
+  <text x="720" y="1310" class="subtitle">• <tspan style="font-weight: bold;">Seguro:</tspan> Validación en múltiples niveles</text>
+
+  <!-- Footer -->
+  <rect x="50" y="1650" width="1500" height="80" fill="#f0f0f0" stroke="#333" stroke-width="1" rx="5"/>
+  <text x="800" y="1680" class="title" style="text-anchor: middle; font-size: 16px;">💡 En resumen:</text>
+  <text x="800" y="1705" class="subtitle" style="text-anchor: middle;">El cliente envía una petición HTTP → Pasa por seguridad → Llega al Controller → Procesa en Service →</text>
+  <text x="800" y="1720" class="subtitle" style="text-anchor: middle;">Guarda en DB vía Repository → Retorna respuesta al cliente con el resultado</text>
+</svg>
