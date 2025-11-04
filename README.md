@@ -22,6 +22,7 @@ SPRING_DATASOURCE_USERNAME=root
 SPRING_DATASOURCE_PASSWORD=REPLACE_ME
 SPRING_PROFILES_ACTIVE=default
 JAVA_OPTS=
+JWT_SECRET=CHANGE_ME_CHANGE_ME_CHANGE_ME_32BYTES
 ```
 - Si tu proveedor requiere SSL: añade `useSSL=true&requireSSL=true&verifyServerCertificate=true` a la URL y configura certificados.
 
@@ -45,7 +46,7 @@ docker compose up --build -d
 ## Buenas prácticas
 - No subas tu `.env` (ya está ignorado en `.dockerignore`).
 - Usa secretos/vars en GitHub Actions o tu plataforma de despliegue.
-- Cambia `app.security.jwt.secret` en producción y gestiona tokens de forma segura.
+- Define `JWT_SECRET` en producción y gestiona tokens de forma segura.
 
 ## Ejecución local (opcional)
 ```
