@@ -41,14 +41,14 @@ public class Evento {
     @Column(name = "precio", precision = 10, scale = 2)
     private BigDecimal precio;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = com.clubSocial.clubSocial.model.converter.EventoTipoEventoConverter.class)
     @Column(name = "tipo_evento")
     private TipoEvento tipoEvento;
 
     @Column(length = 255)
     private String imagen;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = com.clubSocial.clubSocial.model.converter.EventoEstadoConverter.class)
     @Column(name = "estado")
     private Estado estado;
 
