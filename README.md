@@ -59,3 +59,28 @@ docker compose up --build -d
 
 ## Licencia
 - Este proyecto no declara una licencia específica. Añade una si lo necesitas.
+
+## CI/CD con GitHub Actions y Render
+- Este repo incluye un workflow en `/.github/workflows/deploy.yml` que:
+  - Compila el proyecto con Maven.
+  - Construye y publica la imagen Docker en `ghcr.io/<owner>/<repo>:latest`.
+  - Dispara un redeploy en Render mediante un Deploy Hook.
+
+### Configuración requerida
+- En tu repositorio de GitHub, añade el secreto `RENDER_DEPLOY_HOOK_URL` con la URL de Deploy Hook de tu servicio en Render.
+- No necesitas credenciales extra para `ghcr.io`; el workflow usa `GITHUB_TOKEN` con permisos de `packages: write`.
+
+### Cómo se ejecuta
+- En cada `push` a `main` o desde `Run workflow` (workflow_dispatch), se ejecutará:
+  1) `./mvnw -DskipTests package`
+  2) Build & push de la imagen Docker a GHCR
+  3) `curl -X POST $RENDER_DEPLOY_HOOK_URL` para redeploy en Render
+
+### Verificación
+- Ve a GitHub → `Actions` para revisar los logs del pipeline.
+- En Render, revisa el historial de deploys y los logs de build.
+
+### Troubleshooting
+- Asegúrate de que tu `Dockerfile` buildé correctamente localmente.
+- Si tu servicio en Render buildé desde GitHub directamente, el Deploy Hook es suficiente; publicar en GHCR es opcional.
+- Si usas Docker como fuente en Render, apunta al `ghcr.io/<owner>/<repo>:latest` y habilita el acceso.
