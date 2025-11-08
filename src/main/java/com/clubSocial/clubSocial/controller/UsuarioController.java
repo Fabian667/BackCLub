@@ -3,6 +3,7 @@ package com.clubSocial.clubSocial.controller;
 import com.clubSocial.clubSocial.model.Usuario;
 import com.clubSocial.clubSocial.repository.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -147,10 +148,10 @@ public class UsuarioController {
         return repo.findById(id).<ResponseEntity<UsuarioDto>>map(existing -> {
             // email requerido y único
             if (req.email() == null || req.email().isBlank()) {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body(null);
             }
             if (!existing.getEmail().equals(req.email()) && repo.existsByEmail(req.email())) {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body(null);
             }
 
             existing.setNombre(req.nombre());
@@ -186,7 +187,7 @@ public class UsuarioController {
 
             Usuario saved = repo.save(existing);
             return ResponseEntity.ok(toDto(saved));
-        }).orElse(ResponseEntity.notFound().build());
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     private static Usuario.EstadoUsuario parseEstado(String v){
@@ -237,7 +238,7 @@ public class UsuarioController {
         return repo.findById(id).<ResponseEntity<UsuarioDto>>map(existing -> {
             if (req.email() != null && !req.email().isBlank()){
                 if (!existing.getEmail().equals(req.email()) && repo.existsByEmail(req.email())){
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.badRequest().body(null);
                 }
                 existing.setEmail(req.email());
             }
@@ -266,6 +267,6 @@ public class UsuarioController {
 
             Usuario saved = repo.save(existing);
             return ResponseEntity.ok(toDto(saved));
-        }).orElse(ResponseEntity.notFound().build());
+        }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 }
