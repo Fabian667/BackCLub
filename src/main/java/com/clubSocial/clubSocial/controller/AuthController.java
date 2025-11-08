@@ -5,6 +5,7 @@ import com.clubSocial.clubSocial.model.Usuario;
 import com.clubSocial.clubSocial.repository.UsuarioRepository;
 import com.clubSocial.clubSocial.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AuthDtos.AuthResponse> register(@RequestBody AuthDtos.RegisterRequest request){
         return ResponseEntity.ok(authService.register(request));
     }
