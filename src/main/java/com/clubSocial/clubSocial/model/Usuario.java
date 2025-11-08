@@ -2,6 +2,7 @@ package com.clubSocial.clubSocial.model;
 
 import com.clubSocial.clubSocial.model.converter.EstadoUsuarioConverter;
 import com.clubSocial.clubSocial.model.converter.TipoCuentaConverter;
+import com.clubSocial.clubSocial.model.converter.TipoSocioConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.*;
@@ -28,6 +29,9 @@ public class Usuario {
     private String telefono;
     private String direccion;
 
+    // Documento nacional de identidad
+    private String dni;
+
     private LocalDate fechaNacimiento;
 
     private LocalDateTime fechaRegistro;
@@ -37,6 +41,10 @@ public class Usuario {
 
     @Convert(converter = TipoCuentaConverter.class)
     private TipoCuenta tipoCuenta;
+
+    // Tipo de socio: titular, familiar, invitado
+    @Convert(converter = TipoSocioConverter.class)
+    private TipoSocio tipoSocio;
 
     @Column(nullable = false)
     private String passwordHash;
@@ -48,8 +56,10 @@ public class Usuario {
         if (fechaRegistro == null) fechaRegistro = LocalDateTime.now();
         if (estado == null) estado = EstadoUsuario.ACTIVO;
         if (tipoCuenta == null) tipoCuenta = TipoCuenta.SOCIO;
+        if (tipoSocio == null) tipoSocio = TipoSocio.TITULAR;
     }
 
     public enum EstadoUsuario { ACTIVO, SUSPENDIDO, ELIMINADO }
     public enum TipoCuenta { SOCIO, ADMIN }
+    public enum TipoSocio { TITULAR, FAMILIAR, INVITADO }
 }
