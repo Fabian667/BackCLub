@@ -144,7 +144,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @RequestBody UpdateUsuarioRequest req){
-        return repo.findById(id).map(existing -> {
+        return repo.findById(id).<ResponseEntity<UsuarioDto>>map(existing -> {
             // email requerido y único
             if (req.email() == null || req.email().isBlank()) {
                 return ResponseEntity.badRequest().build();
@@ -234,7 +234,7 @@ public class UsuarioController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioDto> patch(@PathVariable Long id, @RequestBody PatchUsuarioRequest req){
-        return repo.findById(id).map(existing -> {
+        return repo.findById(id).<ResponseEntity<UsuarioDto>>map(existing -> {
             if (req.email() != null && !req.email().isBlank()){
                 if (!existing.getEmail().equals(req.email()) && repo.existsByEmail(req.email())){
                     return ResponseEntity.badRequest().build();
