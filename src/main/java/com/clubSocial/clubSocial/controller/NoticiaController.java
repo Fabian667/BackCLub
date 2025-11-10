@@ -16,7 +16,13 @@ public class NoticiaController {
     public NoticiaController(NoticiaRepository repo) { this.repo = repo; }
 
     @GetMapping
-    public List<Noticia> all(){ return repo.findAll(); }
+    public List<Noticia> publicadas(){
+        return repo.findByEstado(Noticia.Estado.PUBLICADA);
+    }
+
+    @GetMapping("/todas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Noticia> todas(){ return repo.findAll(); }
 
     @GetMapping("/{id}")
     public ResponseEntity<Noticia> byId(@PathVariable Long id){
