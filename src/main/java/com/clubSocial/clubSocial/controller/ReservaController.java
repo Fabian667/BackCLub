@@ -41,7 +41,7 @@ public class ReservaController {
     @GetMapping("/count")
     public long count(){ return repo.count(); }
 
-    public record CreateReservaRequest(Long instalacionId, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin) {}
+    public record CreateReservaRequest(Long instalacionId, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Integer cantidadPersonas, String motivo, String observaciones) {}
 
     @PostMapping
     public ResponseEntity<Reserva> create(@RequestBody CreateReservaRequest req, Authentication auth){
@@ -54,10 +54,15 @@ public class ReservaController {
         r.setFechaReserva(req.fechaReserva());
         r.setHoraInicio(req.horaInicio());
         r.setHoraFin(req.horaFin());
-        r.setEstado(Reserva.Estado.RESERVADA);
+        r.setEstado(Reserva.Estado.PENDIENTE);
+        r.setCantidadPersonas(req.cantidadPersonas());
+        r.setMotivo(req.motivo());
+        r.setObservaciones(req.observaciones());
         long minutes = Duration.between(req.horaInicio(), req.horaFin()).toMinutes();
         BigDecimal hours = BigDecimal.valueOf(minutes).divide(BigDecimal.valueOf(60), 2, java.math.RoundingMode.HALF_UP);
-        r.setCostoTotal(inst.getPrecioHora() != null ? inst.getPrecioHora().multiply(hours) : BigDecimal.ZERO);
+        BigDecimal precio = inst.getPrecioHora() != null ? inst.getPrecioHora().multiply(hours) : BigDecimal.ZERO;
+        r.setPrecioTotal(precio);
+        r.setCostoTotal(precio);
         return ResponseEntity.ok(repo.save(r));
     }
 
@@ -65,6 +70,7 @@ public class ReservaController {
     public ResponseEntity<Reserva> cancelar(@PathVariable Long id){
         return repo.findById(id).map(reserva -> {
             reserva.setEstado(Reserva.Estado.CANCELADA);
+            reserva.setFechaCancelacion(java.time.LocalDateTime.now());
             return ResponseEntity.ok(repo.save(reserva));
         }).orElse(ResponseEntity.notFound().build());
     }
