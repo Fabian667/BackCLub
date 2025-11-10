@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/reservas")
@@ -30,12 +31,52 @@ public class ReservaController {
         this.usuarioRepo = usuarioRepo;
     }
 
+    public record ReservaPublicDto(
+            Long id,
+            Long instalacionId,
+            LocalDate fechaReserva,
+            LocalTime horaInicio,
+            LocalTime horaFin,
+            Integer cantidadPersonas,
+            Reserva.Estado estado,
+            String motivo,
+            String observaciones,
+            BigDecimal precioTotal,
+            BigDecimal costoTotal,
+            LocalDateTime fechaCreacion,
+            LocalDateTime fechaActualizacion,
+            LocalDateTime fechaCancelacion
+    ){}
+
+    private static ReservaPublicDto toPublicDto(Reserva r){
+        return new ReservaPublicDto(
+                r.getId(),
+                r.getInstalacion() != null ? r.getInstalacion().getId() : null,
+                r.getFechaReserva(),
+                r.getHoraInicio(),
+                r.getHoraFin(),
+                r.getCantidadPersonas(),
+                r.getEstado(),
+                r.getMotivo(),
+                r.getObservaciones(),
+                r.getPrecioTotal(),
+                r.getCostoTotal(),
+                r.getFechaCreacion(),
+                r.getFechaActualizacion(),
+                r.getFechaCancelacion()
+        );
+    }
+
     @GetMapping
-    public List<Reserva> all(){ return repo.findAll(); }
+    public List<ReservaPublicDto> all(){
+        return repo.findAll().stream().map(ReservaController::toPublicDto).toList();
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reserva> byId(@PathVariable Long id){
-        return repo.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ReservaPublicDto> byId(@PathVariable Long id){
+        return repo.findById(id)
+                .map(r -> ResponseEntity.ok(toPublicDto(r)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/count")
