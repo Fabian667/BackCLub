@@ -4,6 +4,7 @@ import com.clubSocial.clubSocial.model.Noticia;
 import com.clubSocial.clubSocial.repository.NoticiaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,10 @@ public class NoticiaController {
     public NoticiaController(NoticiaRepository repo) { this.repo = repo; }
 
     @GetMapping
-    public List<Noticia> publicadas(){
-        return repo.findByEstado(Noticia.Estado.PUBLICADA);
+    public List<Noticia> publicadas(Authentication auth){
+        boolean isAdmin = auth != null && auth.getAuthorities().stream()
+                .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+        return isAdmin ? repo.findAll() : repo.findByEstado(Noticia.Estado.PUBLICADA);
     }
 
     @GetMapping("/todas")
