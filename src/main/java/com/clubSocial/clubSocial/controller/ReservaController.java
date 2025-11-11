@@ -70,7 +70,9 @@ public class ReservaController {
     @GetMapping
     public List<ReservaPublicDto> all(){
         LocalDate hoy = LocalDate.now();
-        return repo.findByFechaReservaGreaterThanEqual(hoy).stream().map(ReservaController::toPublicDto).toList();
+        return repo
+                .findByFechaReservaGreaterThanEqualAndEstadoNot(hoy, Reserva.Estado.CANCELADA)
+                .stream().map(ReservaController::toPublicDto).toList();
     }
 
     @GetMapping("/{id}")
@@ -83,7 +85,7 @@ public class ReservaController {
     @GetMapping("/count")
     public long count(){
         LocalDate hoy = LocalDate.now();
-        return repo.countByFechaReservaGreaterThanEqual(hoy);
+        return repo.countByFechaReservaGreaterThanEqualAndEstadoNot(hoy, Reserva.Estado.CANCELADA);
     }
 
     public record CreateReservaRequest(Long instalacionId, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Integer cantidadPersonas, String motivo, String observaciones) {}

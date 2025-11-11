@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Reserva> findByFechaReservaGreaterThanEqual(LocalDate fecha);
     long countByFechaReservaGreaterThanEqual(LocalDate fecha);
+    List<Reserva> findByFechaReservaGreaterThanEqualAndEstadoNot(LocalDate fecha, Reserva.Estado estado);
+    long countByFechaReservaGreaterThanEqualAndEstadoNot(LocalDate fecha, Reserva.Estado estado);
 }
