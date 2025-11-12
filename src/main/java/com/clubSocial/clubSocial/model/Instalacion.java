@@ -21,6 +21,9 @@ public class Instalacion {
     private Integer capacidadMaxima;
     private BigDecimal precioHora;
 
+    @Column(length = 255)
+    private String imagen; // URL de foto de la instalación
+
     @Convert(converter = com.clubSocial.clubSocial.model.converter.InstalacionEstadoConverter.class)
     private Estado estado;
 
