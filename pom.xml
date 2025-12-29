@@ -85,12 +85,6 @@
 		</dependency>
 		-->
 		
-		<!-- MySQL Database -->
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 		<!-- SQLite Cloud (Driver must be provided if not supported by standard sqlite-jdbc) -->
 		<!-- Using standard SQLite driver as placeholder/fallback -->
